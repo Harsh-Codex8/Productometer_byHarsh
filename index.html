@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productometer Dashboard</title>
+    <!-- Google Fonts for Cursive Style and Clean UI text -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons Link -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- 1. Headings & Control Actions -->
+        <header class="dashboard-header">
+            <h1 class="logo-title">Productometer</h1>
+            <div class="header-action-controls">
+                <button class="action-btn new-btn" id="newDayBtn">
+                    <img src="./New.png" alt="New" class="btn-local-icon"> New
+                </button>
+                <button class="action-btn save-btn" id="saveDataBtn">
+                    <img src="./Save.png" alt="Save" class="btn-local-icon"> Save Data
+                </button>
+            </div>
+        </header>
+
+        <!-- 2. Main Timeline Tracker Slider (24-Hour Timeline Bar) -->
+        <section class="timeline-section">
+            <div class="capsule-timeline" id="mainTimeline">
+                <!-- JavaScript loop dynamically injects 48 slots here -->
+            </div>
+            <div class="timeline-labels">
+                <span>12 AM</span>
+                <span>6 AM</span>
+                <span>12 PM</span>
+                <span>6 PM</span>
+                <span>12 AM</span>
+            </div>
+        </section>
+
+        <!-- 3. Main Options Tracker Grid Capsules (with strictly UPPERCASE PNG file targets) -->
+        <section class="activity-grid">
+            <div class="activity-capsule academics" data-activity="academics">
+                <span class="badge" id="badge-academics">🏆</span>
+                <div class="icon-wrapper"><img src="./Academics.png" alt="Academics" class="local-icon"></div>
+                <span class="activity-name">Academics</span>
+                <span class="hours-display" id="hrs-academics">0.0h</span>
+            </div>
+            <div class="activity-capsule health" data-activity="health">
+                
+                <div class="icon-wrapper"><img src="./Health.png" alt="Health" class="local-icon"></div>
+                <span class="activity-name">Health</span>
+                <span class="hours-display" id="hrs-health">0.0h</span>
+            </div>
+            <div class="activity-capsule skills" data-activity="skills">
+                
+                <div class="icon-wrapper"><img src="./Skills.png" alt="Skills" class="local-icon"></div>
+                <span class="activity-name">Skills</span>
+                <span class="hours-display" id="hrs-skills">0.0h</span>
+            </div>
+            <div class="activity-capsule screen" data-activity="screen">
+                
+                <div class="icon-wrapper"><img src="./Screen.png" alt="Screen" class="local-icon"></div>
+                <span class="activity-name">Screen</span>
+                <span class="hours-display" id="hrs-screen">0.0h</span>
+            </div>
+            <div class="activity-capsule school" data-activity="school">
+                
+                <div class="icon-wrapper"><img src="./School.png" alt="School" class="local-icon"></div>
+                <span class="activity-name">School</span>
+                <span class="hours-display" id="hrs-school">0.0h</span>
+            </div>
+            <div class="activity-capsule sleep" data-activity="sleep">
+                
+                <div class="icon-wrapper"><img src="./Sleep.png" alt="Sleep" class="local-icon"></div>
+                <span class="activity-name">Sleep</span>
+                <span class="hours-display" id="hrs-sleep">0.0h</span>
+            </div>
+            <div class="activity-capsule other" data-activity="other">
+                <div class="icon-wrapper"><img src="./Others.png" alt="Other" class="local-icon"></div>
+                <span class="activity-name">Other</span>
+                <span class="hours-display" id="hrs-other">0.0h</span>
+            </div>
+            <div class="activity-capsule eraser-tool" data-activity="eraser">
+                <div class="icon-wrapper"><img src="./Eraser.png" alt="Eraser" class="local-icon"></div>
+                <span class="activity-name">Eraser</span>
+                <span class="hours-display" style="font-size: 0.82rem; color: #646475;">Wipe Mode</span>
+            </div>
+        </section>
+        <!-- 4. Interactive Checklist To-Do List Container -->
+        <section class="todo-list-section">
+            <div class="todo-header-row">
+                <div class="todo-title-label">Programmed Tasks To-Do List</div>
+                <div class="bonus-notice-tag">+50 PTS PER COMPLETED TASK!</div>
+            </div>
+            <!-- Dynamic Task Display Bucket -->
+            <div class="todo-items-bucket" id="todoItemsBucket">
+                <!-- JavaScript automatically populates tasks here -->
+            </div>
+        </section>
+
+        <!-- 5. Slider-Free Drawer Task Builder Workspace Menu System -->
+        <section class="task-builder-drawer-section">
+            <!-- Clickable Row Header to Open/Close Menu Drawer -->
+            <div class="drawer-trigger-row" id="addTaskTriggerRow">
+                <span>Click Here to Add a New Task to List</span>
+            </div>
+
+            <!-- Expanding Submenu Options Area Workspace -->
+            <div class="drawer-submenu-wrapper" id="taskSubmenuWrapper">
+                <!-- Category Select Tabs Row -->
+                <div class="menu-tabs-row">
+                    <button class="type-tab-btn active" data-type="academics">Academics</button>
+                    <button class="type-tab-btn" data-type="skills">Skills</button>
+                    <button class="type-tab-btn" data-type="health">Health</button>
+                </div>
+
+                <!-- Optional Short Description Bar Input Box Field -->
+                <div class="drawer-description-bar">
+                    <input type="text" id="taskDescriptionInput" placeholder="Add optional task description note here first...">
+                </div>
+
+                <!-- Academics Sub-options Row -->
+                <div class="sub-buttons-row academics" id="options-academics">
+                    <button data-task="Lecture">Lecture</button>
+                    <button data-task="Revision">Revision</button>
+                    <button data-task="Question Practice">Question Practice</button>
+                    <button class="custom-task-btn" data-task="custom"><i class="fa-solid fa-plus"></i> Custom Task</button>
+                </div>
+
+                <!-- Skills Sub-options Row (Hidden on Startup) -->
+                <div class="sub-buttons-row skills hidden" id="options-skills" style="display: none;">
+                    <button data-task="Technical">Technical</button>
+                    <button data-task="Physical">Physical</button>
+                    <button data-task="Something New">Something New</button>
+                    <button class="custom-task-btn" data-task="custom"><i class="fa-solid fa-plus"></i> Custom Task</button>
+                </div>
+
+                <!-- Health Sub-options Row (Hidden on Startup) -->
+                <div class="sub-buttons-row health hidden" id="options-health" style="display: none;">
+                    <button data-task="Running">Running</button>
+                    <button data-task="Exercise">Exercise</button>
+                    <button class="custom-task-btn" data-task="custom"><i class="fa-solid fa-plus"></i> Custom Task</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Gauges & Graphs Visualization Panels -->
+        <section class="visualization-center">
+            <div class="gauge-card">
+                <canvas id="gaugeCanvas" width="320" height="260"></canvas>
+                <div class="gauge-readout">
+                    <span id="gaugeValue">0</span>
+                    <span class="gauge-unit">Productivity Score</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="graph-section">
+            <div class="graph-card">
+                <div class="card-header-label">Productivity Trend Timeline</div>
+                <div class="canvas-wrapper">
+                    <canvas id="trendGraphCanvas" width="560" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Weekly Comparison Analytics Panel Appended at the Absolute Bottom -->
+        <section class="graph-section weekly-analytics-container">
+            <div class="graph-card">
+                <div class="card-header-label">Weekly Comparison Performance (Last 7 Days)</div>
+                <div class="canvas-wrapper">
+                    <canvas id="weeklyGraphCanvas" width="560" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graphical Modal Pop-up Overlays Layer Box Containers -->
+        <div class="modal-overlay hidden" id="customTaskModal">
+            <div class="modal-card">
+                <h4><i class="fa-solid fa-circle-plus"></i> Design Custom Task</h4>
+                <div class="modal-input-group">
+                    <label for="customTaskTitleInput">Enter Task Name:</label>
+                    <input type="text" id="customTaskTitleInput" placeholder="e.g. Solve 15 questions, Read chapter 2...">
+                </div>
+                <div class="modal-actions-row">
+                    <button class="modal-btn cancel-btn" id="taskCancelBtn">Ignore</button>
+                    <button class="modal-btn confirm-btn" id="taskConfirmBtn">Create Card</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay hidden" id="resetConfirmModal">
+            <div class="modal-card warning-theme">
+                <h4><i class="fa-solid fa-triangle-exclamation"></i> Reset Dashboard?</h4>
+                <p>This will permanently clear your timeline logs and empty out your To-Do checklist. Are you absolutely sure?</p>
+                <div class="modal-actions-row">
+                    <button class="modal-btn cancel-btn" id="resetCancelBtn">Cancel</button>
+                    <button class="modal-btn confirm-btn danger-confirm" id="resetConfirmBtn">Clear App</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay hidden" id="saveNotifyModal">
+            <div class="modal-card success-theme">
+                <h4><i class="fa-solid fa-circle-check"></i> Snapshot Sheets Compiled</h4>
+                <p>Your performance analytics charts, task checklist matrix records, and activity donut ring have been successfully generated.</p>
+                <div class="modal-actions-row" style="justify-content: center;">
+                    <button class="modal-btn confirm-btn" id="saveCloseBtn" style="padding: 10px 40px;">Excellent</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
