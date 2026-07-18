@@ -325,28 +325,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 6. Chronological Line Graph Canvas Renderer
+       // 6. Chronological Multi-Color Activity Plotted Line Graph Canvas Renderer (Responsive)
     function drawTrendGraph(pointsArray) {
-        if (!tCtx || !trendGraphCanvas) return; tCtx.clearRect(0, 0, trendGraphCanvas.width, trendGraphCanvas.height);
-        const padL = 40, padR = 20, padT = 20, padB = 25; const graphW = trendGraphCanvas.width - padL - padR; const graphH = trendGraphCanvas.height - padT - padB;
-        tCtx.strokeStyle = 'rgba(255, 255, 255, 0.03)'; tCtx.lineWidth = 1; [0.25, 0.5, 0.75].forEach(ratio => { tCtx.beginPath(); tCtx.moveTo(padL, padT + (graphH * ratio)); tCtx.lineTo(trendGraphCanvas.width - padR, padT + (graphH * ratio)); tCtx.stroke(); });
+        if (!tCtx || !trendGraphCanvas) return;
+        
+        // Dynamically match the actual display width of your Android screen
+        const parentW = trendGraphCanvas.parentElement.clientWidth;
+        if (parentW && trendGraphCanvas.width !== parentW) {
+            trendGraphCanvas.width = parentW;
+        }
+
+        tCtx.clearRect(0, 0, trendGraphCanvas.width, trendGraphCanvas.height);
+        const padL = 40, padR = 20, padT = 20, padB = 25; 
+        const graphW = trendGraphCanvas.width - padL - padR; 
+        const graphH = trendGraphCanvas.height - padT - padB;
+        
+        tCtx.strokeStyle = 'rgba(255, 255, 255, 0.03)'; tCtx.lineWidth = 1;
+        [0.25, 0.5, 0.75].forEach(ratio => { tCtx.beginPath(); tCtx.moveTo(padL, padT + (graphH * ratio)); tCtx.lineTo(trendGraphCanvas.width - padR, padT + (graphH * ratio)); tCtx.stroke(); });
         function getCanvasY(val) { return padT + graphH - (graphH * ((Math.max(-500, Math.min(val, 1500)) - (-500)) / 2000)); }
         tCtx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; tCtx.beginPath(); tCtx.moveTo(padL, getCanvasY(0)); tCtx.lineTo(trendGraphCanvas.width - padR, getCanvasY(0)); tCtx.stroke();
         tCtx.fillStyle = '#4e4e5e'; tCtx.font = '600 10px Inter'; tCtx.textAlign = 'right'; tCtx.fillText('1500', padL - 10, padT + 4); tCtx.fillText('0', padL - 10, getCanvasY(0) + 3); tCtx.fillText('-500', padL - 10, padT + graphH + 2);
         tCtx.textAlign = 'center'; tCtx.fillText('12 AM', padL, padT + graphH + 18); tCtx.fillText('12 PM', padL + (graphW * 0.5), padT + graphH + 18); tCtx.fillText('12 AM', padL + graphW, padT + graphH + 18);
-        if (pointsArray.length > 1) { for (let i = 1; i < pointsArray.length; i++) { tCtx.beginPath(); tCtx.moveTo(padL + (graphW * ((i - 1) / 47)), getCanvasY(pointsArray[i - 1].score)); tCtx.lineTo(padL + (graphW * (i / 47)), getCanvasY(pointsArray[i].score)); const act = pointsArray[i].activity; let col = 'rgba(255, 255, 255, 0.15)'; if (act && activityColors[act]) col = activityColors[act]; tCtx.lineWidth = 3.5; tCtx.strokeStyle = col; tCtx.lineCap = 'round'; tCtx.lineJoin = 'round'; if (act && act !== 'eraser') { tCtx.shadowBlur = 10; tCtx.shadowColor = col + '55'; } tCtx.stroke(); tCtx.shadowBlur = 0; } }
+
+        if (pointsArray.length > 1) {
+            for (let i = 1; i < pointsArray.length; i++) {
+                tCtx.beginPath(); tCtx.moveTo(padL + (graphW * ((i - 1) / 47)), getCanvasY(pointsArray[i - 1].score)); tCtx.lineTo(padL + (graphW * (i / 47)), getCanvasY(pointsArray[i].score));
+                const act = pointsArray[i].activity; let col = 'rgba(255, 255, 255, 0.15)'; if (act && activityColors[act]) col = activityColors[act];
+                tCtx.lineWidth = 3.5; tCtx.strokeStyle = col; tCtx.lineCap = 'round'; tCtx.lineJoin = 'round';
+                if (act && act !== 'eraser') { tCtx.shadowBlur = 10; tCtx.shadowColor = col + '55'; } tCtx.stroke(); tCtx.shadowBlur = 0;
+            }
+        }
     }
+
     // 7. Weekly Historical 7-Day Performance Bar Chart Canvas Rendering Engine
+       // 7. Weekly Historical 7-Day Performance Bar Chart Canvas Rendering Engine (Responsive)
     function drawWeeklyComparisonGraph(historyArray) {
-        if (!weeklyCanvas || !wCtx) return; wCtx.clearRect(0, 0, weeklyCanvas.width, weeklyCanvas.height);
-        const padL = 40, padR = 20, padT = 20, padB = 25; const graphW = weeklyCanvas.width - padL - padR; const graphH = weeklyCanvas.height - padT - padB;
-        wCtx.strokeStyle = 'rgba(255, 255, 255, 0.03)'; wCtx.lineWidth = 1; [0.25, 0.5, 0.75].forEach(ratio => { wCtx.beginPath(); wCtx.moveTo(padL, padT + (graphH * ratio)); wCtx.lineTo(weeklyCanvas.width - padR, padT + (graphH * ratio)); wCtx.stroke(); });
+        if (!weeklyCanvas || !wCtx) return;
+        
+        // Dynamically match the actual display width of your Android screen
+        const parentW = weeklyCanvas.parentElement.clientWidth;
+        if (parentW && weeklyCanvas.width !== parentW) {
+            weeklyCanvas.width = parentW;
+        }
+
+        wCtx.clearRect(0, 0, weeklyCanvas.width, weeklyCanvas.height);
+        const padL = 40, padR = 20, padT = 20, padB = 25; 
+        const graphW = weeklyCanvas.width - padL - padR; 
+        const graphH = weeklyCanvas.height - padT - padB;
+        
+        wCtx.strokeStyle = 'rgba(255, 255, 255, 0.03)'; wCtx.lineWidth = 1;
+        [0.25, 0.5, 0.75].forEach(ratio => { wCtx.beginPath(); wCtx.moveTo(padL, padT + (graphH * ratio)); wCtx.lineTo(weeklyCanvas.width - padR, padT + (graphH * ratio)); wCtx.stroke(); });
         const minY = -500, maxY = 1500; function getCanvasY(val) { return padT + graphH - (graphH * ((Math.max(minY, Math.min(val, maxY)) - minY) / (maxY - minY))); }
         const zeroY = getCanvasY(0); wCtx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; wCtx.beginPath(); wCtx.moveTo(padL, zeroY); wCtx.lineTo(weeklyCanvas.width - padR, zeroY); wCtx.stroke();
         wCtx.fillStyle = '#4e4e5e'; wCtx.font = '600 10px Inter'; wCtx.textAlign = 'right'; wCtx.fillText('1500', padL - 10, padT + 4); wCtx.fillText('0', padL - 10, zeroY + 3); wCtx.fillText('-500', padL - 10, padT + graphH + 2);
 
-        const columnWidthBar = 30; const totalElements = historyArray.length;
-        historyArray.forEach((item, idx) => { const barCenterX = padL + (graphW * (idx / (totalElements - 1))); const barTopY = getCanvasY(item.score); wCtx.fillStyle = '#646475'; wCtx.font = '600 10px Inter'; wCtx.textAlign = 'center'; wCtx.fillText(item.day, barCenterX, padT + graphH + 18); let barColor = '#ff1744'; if (item.score >= 0) { barColor = item.score <= 300 ? '#ffb300' : '#00e676'; } wCtx.fillStyle = barColor; wCtx.beginPath(); if (item.score >= 0) { wCtx.roundRect(barCenterX - (columnWidthBar / 2), barTopY, columnWidthBar, zeroY - barTopY, 6); } else { wCtx.roundRect(barCenterX - (columnWidthBar / 2), zeroY, columnWidthBar, barTopY - zeroY, 6); } wCtx.shadowBlur = 8; wCtx.shadowColor = barColor + '33'; wCtx.fill(); wCtx.shadowBlur = 0; });
+        // Adjust column bar widths fluidly so they never clip on small screens
+        const columnWidthBar = Math.max(14, Math.min(30, graphW / 14)); 
+        const totalElements = historyArray.length;
+        
+        historyArray.forEach((item, idx) => {
+            const barCenterX = padL + (graphW * (idx / (totalElements - 1))); const barTopY = getCanvasY(item.score);
+            wCtx.fillStyle = '#646475'; wCtx.font = '600 10px Inter'; wCtx.textAlign = 'center'; wCtx.fillText(item.day, barCenterX, padT + graphH + 18);
+            let barColor = '#ff1744'; if (item.score >= 0) { barColor = item.score <= 300 ? '#ffb300' : '#00e676'; }
+            wCtx.fillStyle = barColor; wCtx.beginPath();
+            if (item.score >= 0) { wCtx.roundRect(barCenterX - (columnWidthBar / 2), barTopY, columnWidthBar, zeroY - barTopY, 4); }
+            else { wCtx.roundRect(barCenterX - (columnWidthBar / 2), zeroY, columnWidthBar, barTopY - zeroY, 4); }
+            wCtx.shadowBlur = 8; wCtx.shadowColor = barColor + '33'; wCtx.fill(); wCtx.shadowBlur = 0;
+        });
     }
+
 
     // --- 🛡️ GRAPHICAL NEON MODAL POP-UP TIMEOUT EVENT LISTENERS TRACKS ---
     if (newDayBtn && resetConfirmModal) { newDayBtn.addEventListener('click', () => { resetConfirmModal.classList.remove('hidden'); }); }
