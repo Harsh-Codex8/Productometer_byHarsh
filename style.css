@@ -342,3 +342,30 @@ body {
 .card-header-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: #8a8a9e; letter-spacing: 1px; margin-bottom: 15px; }
 .canvas-wrapper { width: 100%; display: flex; align-items: center; justify-content: center; }
 .weekly-analytics-container { width: 100%; margin-top: 10px; box-sizing: border-box; }
+
+/* --- 📱 ANDROID RESPONSIVE GRAPH SCALE FIX --- */
+.canvas-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
+}
+
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 20px 5px !important;
+        gap: 20px !important;
+    }
+    .graph-card, .gauge-card {
+        padding: 15px !important;
+        border-radius: 24px !important;
+    }
+}
